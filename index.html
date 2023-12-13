@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>مواقيت الصلوات | مسجد الرحمة</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        direction: rtl;
+        background-color: #ccc;
+        color: rgb(50, 48, 48);
+      }
+     
+      table {
+        border-spacing: 0;
+        margin: auto;
+        text-align: center;
+        padding: 5px;
+        border-radius: 10px;
+        background-color: #ddd;
+      }
+      h2 {
+        margin: auto auto 30px;
+        text-align: center;
+        padding: 20px;
+        border-bottom: aqua solid 3px;
+      }
+      h2 span{
+        font-size: 20px;
+        color: gray;
+      }
+      td,
+      th {
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0;
+      }
+      td,
+      th {
+        border-top: solid 3px aqua;
+      }
+      .nn{
+        border-top: none;
+      }
+      .footer {
+        border: 2px solid aqua;
+        color: rgb(50, 48, 48);
+        text-align: center;
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-weight: bold;
+        font-size: 20px;
+        padding: 15px;
+        border-radius: 10px;
+        background-color: #ddd;
+      }
+      .footer span {
+        color: #aaa;
+        font-size: 10px;
+      }
+      .footer span a {
+        text-decoration: none;
+        font-weight: bold;
+        color: #aaa;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      let pro = new Promise((resolve, reject) => {
+        let api = new XMLHttpRequest();
+        api.open("GET", "date.json");
+        api.send();
+        api.onload = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            resolve(JSON.parse(this.responseText));
+          } else {
+            reject("ERROR : somethig wrong");
+          }
+        };
+      });
+      pro.then((e) => {
+        /* let date = new Map(Object.entries(e)); //convert object to map */
+        //const
+        let jsonData = e.pray;
+        let textfooter = "";
+        let title = [
+          "أذان صلاة الفجر",
+          "اقامة صلاة الفجر",
+          "أذان صلاة الظهر",
+          "اقامة صلاة الظهر",
+          "أذان صلاة العصر",
+          "اقامة صلاة العصر",
+          "أذان صلاة المغرب",
+          "اقامة صلاة المغرب",
+          "أذان صلاة العشاء",
+          "اقامة صلاة العشاء",
+        ];
+        let date = [];
+        for (let index = 0; index < jsonData.length; index++) {
+          date.push(jsonData[index].a);
+          date.push(jsonData[index].b);
+        }
+        //
+        //culc
+        //Time Now
+        let timeNow = new Date();
+        let timeHourNow = timeNow.getHours();
+        let timeMinuteNow = timeNow.getMinutes();
+        let tnfh = timeHourNow > 9 ? `${timeHourNow}` : `0${timeHourNow}`;
+        let tnfm = timeMinuteNow > 9 ? `${timeMinuteNow}` : `0${timeMinuteNow}`;
+        let tnf = `${tnfh}:${tnfm}`;
+        //
+        for (let index = 0; index < date.length; index++) {
+          if (tnf < date[index]) {
+            let d =
+              new Date(`1970-01-01T${date[index]}:00Z`) -
+              new Date(`1970-01-01T${tnf}:00Z`);
+            let diffrent = d / (1000 * 60);
+            let h = Math.trunc(diffrent / 60);
+            let m = Math.trunc(diffrent % 60);
+            let mm=m==1?`دقيقة `:m==2?`دقيقتين `:m<11? `${m} دقائق `:`${m} دقيقة ` ;
+            let hh=h==1?`ساعة `:h==1?`ساعتين `:h<11? `${h} ساعات `:`${h} ساعة ` ;
+            textfooter =
+              h == 0
+                ? `بقي   ${mm}  من ${title[index]}`
+                : `بقي   ${hh}  و ${mm} من ${title[index]}`;
+            break;
+          } else if (index === 9) {
+            let d =
+              new Date(`1970-01-02T${date[0]}:00Z`) -
+              new Date(`1970-01-01T${tnf}:00Z`);
+            let diffrent = d / (1000 * 60);
+            let h = Math.trunc(diffrent / 60);
+            let m = Math.trunc(diffrent % 60);
+             let mm=m==1?`دقيقة `:m==2?`دقيقتين `:m<11? `${m} دقائق `:`${m} دقيقة ` ;
+             let hh=h==1?`ساعة `:h==1?`ساعتين `:h<11? `${h} ساعات `:`${h} ساعة ` ;
+            textfooter =
+              h == 0
+                ? `بقي   ${mm}  من ${title[index]}`
+                : `بقي   ${hh}  و ${mm} من ${title[0]}`;
+            break;
+          }
+        }
+        //
+        //
+        let text = "";
+        for (let index = 0; index < jsonData.length; index++) {
+          text += `
+        <tr>
+           <th>${jsonData[index].name}</th>
+           <td>${
+             jsonData[index].a.split(":")[0] > 12
+               ? `${jsonData[index].a.split(":")[0] - 12}:${
+                   jsonData[index].a.split(":")[1]
+                 }`
+               : `${jsonData[index].a}`
+           }</td>
+           <td>${
+             jsonData[index].b.split(":")[0] > 12
+               ? `${jsonData[index].b.split(":")[0] - 12}:${
+                   jsonData[index].b.split(":")[1]
+                 }`
+               : `${jsonData[index].b}`
+           }</td>
+         </tr>`;
+        }
+        //
+        let content = document.createElement("div");
+        content.className = "container";
+        content.innerHTML = `
+        <div class="container">
+          <h2>مواقيت الصلوات | مسجد الرحمة
+            <br/>
+            <span>بمنطقة النقعة</span></h2>
+         
+     <table>
+       <thead>
+         <tr>
+           <th class="nn">الفرض / وقت ..</th>
+           <th class="nn">الأذان</th>
+           <th class="nn">الاقامة</th>
+         </tr>
+       </thead>
+       <tbody>
+       ${text}
+       </tbody>
+     </table>
+     <div class="footer">
+       ${textfooter}
+       <br/>
+       <span>أخر تحديث ${e.update}  ||  للتواصل  <a href="https://wa.me/967775998812">4HM3D</></span>
+     </div>
+    </div>
+ `;
+        document.body.appendChild(content);
+      });
+    </script>
+  </body>
+</html>

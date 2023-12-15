@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>مواقيت الصلوات | مسجد الرحمة</title>
+    <link rel="manifest" href="manifest.json" />
     <style>
       * {
         margin: 0;
@@ -14,7 +15,7 @@
         background-color: #ccc;
         color: rgb(50, 48, 48);
       }
-     
+
       table {
         border-spacing: 0;
         margin: auto;
@@ -29,7 +30,7 @@
         padding: 20px;
         border-bottom: aqua solid 3px;
       }
-      h2 span{
+      h2 span {
         font-size: 20px;
         color: gray;
       }
@@ -45,7 +46,7 @@
       th {
         border-top: solid 3px aqua;
       }
-      .nn{
+      .nn {
         border-top: none;
       }
       .footer {
@@ -53,7 +54,7 @@
         color: rgb(50, 48, 48);
         text-align: center;
         position: fixed;
-        bottom: 20px;
+        bottom: 40px;
         left: 50%;
         transform: translateX(-50%);
         font-weight: bold;
@@ -62,19 +63,42 @@
         border-radius: 10px;
         background-color: #ddd;
       }
-      .footer span {
+      .update{
+        padding: 5px 10px;
+        width: fit-content;
+        margin: auto;
+        border-radius: 10px;
+        background-color: #ddd;
+        display: block;
+        text-align: center;
         color: #aaa;
-        font-size: 10px;
+        font-size: 12px;
+        position: relative;
+        top:-25px
       }
-      .footer span a {
+      .contact {
+        position: fixed;
+        bottom: 5px;
+        left: 20%;
+        transform: translateX(-50%);
+        font-size: 12px;
         text-decoration: none;
         font-weight: bold;
+        color: #bbb;
+      }
+      .contact a{
         color: #aaa;
+        text-decoration: none;
+      }
+      @media only screen and (max-width: 600px) {
+        .footer{
+          width: 80%;
+        }
       }
     </style>
   </head>
   <body>
-    <script>
+    <script>   
       let pro = new Promise((resolve, reject) => {
         let api = new XMLHttpRequest();
         api.open("GET", "date.json");
@@ -127,8 +151,22 @@
             let diffrent = d / (1000 * 60);
             let h = Math.trunc(diffrent / 60);
             let m = Math.trunc(diffrent % 60);
-            let mm=m==1?`دقيقة `:m==2?`دقيقتين `:m<11? `${m} دقائق `:`${m} دقيقة ` ;
-            let hh=h==1?`ساعة `:h==1?`ساعتين `:h<11? `${h} ساعات `:`${h} ساعة ` ;
+            let mm =
+              m == 1
+                ? `دقيقة `
+                : m == 2
+                ? `دقيقتين `
+                : m < 11
+                ? `${m} دقائق `
+                : `${m} دقيقة `;
+            let hh =
+              h == 1
+                ? `ساعة `
+                : h == 1
+                ? `ساعتين `
+                : h < 11
+                ? `${h} ساعات `
+                : `${h} ساعة `;
             textfooter =
               h == 0
                 ? `بقي   ${mm}  من ${title[index]}`
@@ -141,8 +179,22 @@
             let diffrent = d / (1000 * 60);
             let h = Math.trunc(diffrent / 60);
             let m = Math.trunc(diffrent % 60);
-             let mm=m==1?`دقيقة `:m==2?`دقيقتين `:m<11? `${m} دقائق `:`${m} دقيقة ` ;
-             let hh=h==1?`ساعة `:h==1?`ساعتين `:h<11? `${h} ساعات `:`${h} ساعة ` ;
+            let mm =
+              m == 1
+                ? `دقيقة `
+                : m == 2
+                ? `دقيقتين `
+                : m < 11
+                ? `${m} دقائق `
+                : `${m} دقيقة `;
+            let hh =
+              h == 1
+                ? `ساعة `
+                : h == 1
+                ? `ساعتين `
+                : h < 11
+                ? `${h} ساعات `
+                : `${h} ساعة `;
             textfooter =
               h == 0
                 ? `بقي   ${mm}  من ${title[index]}`
@@ -194,11 +246,13 @@
        ${text}
        </tbody>
      </table>
+     <br/>
+       <span class="update">أخر تحديث ${e.update}  </span>
      <div class="footer">
        ${textfooter}
-       <br/>
-       <span>أخر تحديث ${e.update}  ||  للتواصل  <a href="https://wa.me/967775998812">4HM3D</></span>
+       
      </div>
+    <div class="contact">  للتواصل  ||<a href="https://wa.me/967775998812">4HM3D<a/></div>
     </div>
  `;
         document.body.appendChild(content);

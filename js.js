@@ -1,30 +1,37 @@
-let pro;
-if (navigator.onLine) {
-    console.log("on");
-pro = new Promise((resolve, reject) => {
-    let api = new XMLHttpRequest();
-    api.open("GET", "date.json");
-    api.send();
-    api.onload = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        resolve(JSON.parse(this.responseText));
-        localStorage.setItem("item", this.responseText);
-      } else {
-        reject("ERROR : somethig wrong");
+const registerServiceWorker = async () => {
+  if ("serviceWorker" in navigator) {
+    try {
+      const registration = await navigator.serviceWorker.register(
+        "service-worker.js"
+      );
+      if (registration.installing) {
+        console.log("Service worker installing");
+      } else if (registration.waiting) {
+        console.log("Service worker installed");
+      } else if (registration.active) {
+        console.log("Service worker active");
       }
-    };
-  });
-} else {
-    console.log("no");
-   pro = new Promise((resolve) => {
-    let data = JSON.parse(localStorage.getItem("item"));
-    resolve(data);
-  });
-}
+    } catch (error) {
+      console.error(`Registration failed with ${error}`);
+    }
+  }
+};
+registerServiceWorker();
+//
 
+let pro = new Promise((resolve, reject) => {
+  let api = new XMLHttpRequest();
+  api.open("GET", "date.json");
+  api.send();
+  api.onload = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      resolve(JSON.parse(this.responseText));
+    } else {
+      reject("ERROR : somethig wrong");
+    }
+  };
+});
 pro.then((e) => {
-  /* let date = new Map(Object.entries(e)); //convert object to map */
-  //const
   let jsonData = e.pray;
   let textfooter = "";
   let title = [
@@ -118,51 +125,52 @@ pro.then((e) => {
   let text = "";
   for (let index = 0; index < jsonData.length; index++) {
     text += `
-    <tr>
-       <th>${jsonData[index].name}</th>
-       <td>${
-         jsonData[index].a.split(":")[0] > 12
-           ? `${jsonData[index].a.split(":")[0] - 12}:${
-               jsonData[index].a.split(":")[1]
-             }`
-           : `${jsonData[index].a}`
-       }</td>
-       <td>${
-         jsonData[index].b.split(":")[0] > 12
-           ? `${jsonData[index].b.split(":")[0] - 12}:${
-               jsonData[index].b.split(":")[1]
-             }`
-           : `${jsonData[index].b}`
-       }</td>
-     </tr>`;
+  <tr>
+     <th>${jsonData[index].name}</th>
+     <td>${
+       jsonData[index].a.split(":")[0] > 12
+         ? `${jsonData[index].a.split(":")[0] - 12}:${
+             jsonData[index].a.split(":")[1]
+           }`
+         : `${jsonData[index].a}`
+     }</td>
+     <td>${
+       jsonData[index].b.split(":")[0] > 12
+         ? `${jsonData[index].b.split(":")[0] - 12}:${
+             jsonData[index].b.split(":")[1]
+           }`
+         : `${jsonData[index].b}`
+     }</td>
+   </tr>`;
   }
   //
   let content = document.createElement("div");
   content.className = "container";
   content.innerHTML = `
-    <div class="container">
-      <h2>مواقيت الصلوات(test) | مسجد الرحمة
-        <br/>
-        <span>بمنطقة النقعة</span></h2>
-     
- <table>
-   <thead>
-     <tr>
-       <th class="nn">الفرض / وقت ..</th>
-       <th class="nn">الأذان</th>
-       <th class="nn">الإقامة</th>
-     </tr>
-   </thead>
-   <tbody>
-   ${text}
-   </tbody>
- </table>
- <br/>
-   <span class="update">أخر تحديث ${e.update}  </span>
- <div class="footer">
-   ${textfooter}
+  <div class="container">
+    <h2>مواقيت الصلوات || مسجد الرحمة
+      <br/>
+      <span>بمنطقة النقعة</span></h2>
    
- </div>
+<table>
+ <thead>
+   <tr>
+     <th class="nn">الفرض / وقت ..</th>
+     <th class="nn">الأذان</th>
+     <th class="nn">الاقامة</th>
+   </tr>
+ </thead>
+ <tbody>
+ ${text}
+ </tbody>
+</table>
+<br/>
+ <span class="update">أخر تحديث ${e.update}  
+ </span>
+<div class="footer">
+ ${textfooter}
+ 
+</div>
 <div class="contact">  للتواصل  ||<a href="https://wa.me/967775998812">4HM3D<a/></div>
 </div>
 `;

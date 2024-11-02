@@ -1,19 +1,9 @@
-//installing and add files to cache
-let nameOfCache = "v1";
-let assets = [
-  "/",
-  "index.html",
-  "style.css",
-  "js.js",
-  "manifest.json",
-  "date.json",
-  "icon192.png",
-];// the cache version gets updated every time there is a new deployment
+// the cache version gets updated every time there is a new deployment
 const CACHE_VERSION = 10;
 const CURRENT_CACHE = `main-${CACHE_VERSION}`;
 
 // these are the routes we are going to cache for offline support
-const cacheFiles = ['/'];
+const cacheFiles = ['/','/service-worker.js','/style.css','/manifest.json', '/icon192.png', '/index.html', '/js.js', '/date.json'];
 
 // on activation we clean up the previously registered service workers
 self.addEventListener('activate', evt =>

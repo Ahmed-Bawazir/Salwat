@@ -146,9 +146,9 @@ pro.then((e) => {
   //
   let content = document.createElement("div");
   content.className = "container";
-  content.innerHTML = `
+  content.innerHTML = /*html*/`
   <div class="container">
-    <h2>مواقيت الصلوات || مسجد ghghghالرحمة
+    <h2>مواقيت الصلوات || مسجدالصديق
       <br/>
       <span>بمنطقة النقعة</span></h2>
    

@@ -20,16 +20,22 @@ registerServiceWorker();
 //
 
 let pro = new Promise((resolve, reject) => {
-  let api = new XMLHttpRequest();
-  api.open("GET", "date.json");
-  api.send();
-  api.onload = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      resolve(JSON.parse(this.responseText));
-    } else {
-      reject("ERROR : somethig wrong");
-    }
-  };
+  let myData = localStorage.getItem("myData");
+  if (myData) {
+    resolve(JSON.parse(myData));
+  } else {
+    let api = new XMLHttpRequest();
+    api.open("GET", "date.json");
+    api.send();
+    api.onload = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        localStorage.setItem("myData",this.responseText)
+        resolve(JSON.parse(this.responseText));
+      } else {
+        reject("ERROR : somethig wrong");
+      }
+    };
+  }
 });
 pro.then((e) => {
   let jsonData = e.pray;
@@ -146,7 +152,7 @@ pro.then((e) => {
   //
   let content = document.createElement("div");
   content.className = "container";
-  content.innerHTML = /*html*/`
+  content.innerHTML = /*html*/ `
   <div class="container">
     <h2>مواقيت الصلوات || مسجدالصديق
       <br/>
@@ -165,14 +171,26 @@ pro.then((e) => {
  </tbody>
 </table>
 <br/>
- <span class="update">أخر تحديث ${e.update}  
+ <span class="update">أخر تحديث ${e.update}  <button onclick="getData()">RE</button>
  </span>
 <div class="footer">
  ${textfooter}
  
 </div>
-<div class="contact">  للتواصل  ||<a href="https://wa.me/967775998812">4HM3D<a/></div>
+<div class="contact"> || <a href="https://wa.me/967775998812">4HM3D</a></div>
 </div>
 `;
   document.body.appendChild(content);
 });
+function getData() {
+  let api = new XMLHttpRequest();
+  api.open("GET", "date.json");
+  api.send();
+  api.onload = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      localStorage.setItem("myData",this.responseText)
+      location.reload();
+    } 
+  };
+
+}

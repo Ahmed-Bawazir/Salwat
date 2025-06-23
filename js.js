@@ -171,7 +171,7 @@ pro.then((e) => {
  </tbody>
 </table>
 <br/>
- <span class="update">أخر تحديث ${e.update}  <button onclick="getData()">RE</button>
+ <span class="update">أخر تحديث ${e.update}  <button onclick="getData()">تحديث</button>
  </span>
 <div class="footer">
  ${textfooter}

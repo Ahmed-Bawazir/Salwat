@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
   <head>
     <meta charset="utf-8" />
     <title>مواقيت الصلوات | مسجد الصديق</title>
@@ -8,11 +8,33 @@
     <link rel="manifest" href="manifest.json" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <style>
-   
-  </style>
   <body>
- 
+    <h2>
+      مواقيت الصلوات || مسجد
+      <select>
+        <option value="ALSDDEQ">الصديق</option>
+        <option value="ALWAJEH">الوجيه</option>
+        <option value="ALRHMH">الرحمة</option>
+      </select>
+      <br />
+      <span>بمنطقة النقعة</span>
+      
+    </h2>
+    <table>
+      <thead>
+        <tr>
+          <th class="nn">الفرض / وقت ..</th>
+          <th class="nn">الأذان</th>
+          <th class="nn">الاقامة</th>
+        </tr>
+      </thead>
+      <tbody id="table-data"></tbody>
+    </table>
+    <br />
+    <div class="update">
+      <span></span><button onclick="getData()">تحديث</button>
+    </div>
+    <div id="footer"></div>
     <script src="js.js"></script>
   </body>
 </html>

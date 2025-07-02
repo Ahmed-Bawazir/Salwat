@@ -26,6 +26,23 @@
     font-size: 20px;
     color: gray;
   }
+
+  select {
+    margin:-5px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    font-size: 24px;
+    font-weight: bold;
+    font-style: italic;
+    color: #323030;
+    width: 85px;
+  }
+  select option{
+    font-size: 20px;
+    text-align: center;
+    font-style: normal;
+  }
   td,
   th {
     padding: 10px 20px;
@@ -41,7 +58,7 @@
   .nn {
     border-top: none;
   }
-  .footer {
+  #footer {
     border: 2px solid aqua;
     color: rgb(50, 48, 48);
     text-align: center;
@@ -50,8 +67,8 @@
     left: 50%;
     transform: translateX(-50%);
     font-weight: bold;
-    font-size: 20px;
-    padding: 15px;
+    font-size: 18px;
+    padding: 12px;
     border-radius: 10px;
     background-color: #ddd;
   }
@@ -78,20 +95,7 @@
   .update button:hover{
     background-color: #aaa;
   }
-  .contact {
-    position: fixed;
-    bottom: 5px;
-    left: 20%;
-    transform: translateX(-50%);
-    font-size: 12px;
-    text-decoration: none;
-    font-weight: bold;
-    color: #bbb;
-  }
-  .contact a{
-    color: #bbb;
-    text-decoration: none;
-  }
+ 
   @media only screen and (max-width: 600px) {
     .footer{
       width: 80%;

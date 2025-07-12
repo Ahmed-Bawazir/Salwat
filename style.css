@@ -1,103 +1,98 @@
 * {
-    margin: 0;
-    padding: 0;
-  }
-  body {
-    direction: rtl;
-    background-color: #ccc;
-    color: rgb(50, 48, 48);
-  }
-  
-  table {
-    border-spacing: 0;
-    margin: auto;
-    text-align: center;
-    padding: 5px;
-    border-radius: 10px;
-    background-color: #aaa;
-  }
-  h2 {
-    margin: auto auto 30px;
-    text-align: center;
-    padding: 20px;
-    border-bottom: aqua solid 3px;
-  }
-  h2 span {
-    font-size: 20px;
-    color: gray;
-  }
+  margin: 0;
+  padding: 0;
+}
+body {
+  direction: rtl;
+  background-color: #ccc;
+  color: rgb(50, 48, 48);
+}
 
-  select {
-    margin:-5px;
-    outline: none;
-    border: none;
-    background-color: transparent;
-    font-size: 24px;
-    font-weight: bold;
-    font-style: italic;
-    color: #323030;
-    width: 85px;
-  }
-  select option{
-    font-size: 20px;
-    text-align: center;
-    font-style: normal;
-  }
-  td,
-  th {
-    padding: 10px 20px;
-    text-align: center;
-    font-size: 20px;
-    font-weight: bold;
-    margin: 0;
-  }
-  td,
-  th {
-    border-top: solid 3px aqua;
-  }
-  .nn {
-    border-top: none;
-  }
-  #footer {
-    border: 2px solid aqua;
-    color: rgb(50, 48, 48);
-    text-align: center;
-    position: fixed;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-weight: bold;
-    font-size: 18px;
-    padding: 12px;
-    border-radius: 10px;
-    background-color: #ddd;
-  }
-  .update{
-    padding: 5px 10px;
-    width: fit-content;
-    margin: auto;
-    border-radius: 10px;
-    background-color: #eee;
-    display: block;
-    text-align: center;
-    color: #aaa;
-    font-size: 12px;
-    position: relative;
-    top:-25px
-  }
-  .update button{
-    background-color: #eee;
-    padding: 2px 5px;
-    border-radius: 5px;
-    border: 2px solid aqua;
-    margin-right: 10px;
-  }
-  .update button:hover{
-    background-color: #aaa;
-  }
- 
-  @media only screen and (max-width: 600px) {
-    .footer{
-      width: 80%;
-    }
-  }
+table {
+  border-spacing: 0;
+  margin: auto;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #aaa;
+}
+h3 {
+  margin: auto auto 30px;
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+
+  border-bottom: aqua solid 3px;
+}
+
+select {
+  margin: -5px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-size: 18px;
+  font-weight: bold;
+  font-style: italic;
+  color: #323030;
+  width: 70px;
+}
+select option {
+  font-size: 16px;
+  text-align: center;
+  font-style: normal;
+}
+td,
+th {
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+td,
+th {
+  border-top: solid 3px aqua;
+}
+.nn {
+  border-top: none;
+}
+#footer {
+  border: 2px solid aqua;
+  color: rgb(50, 48, 48);
+  text-align: center;
+  position: fixed;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #ddd;
+  width: 80%;
+}
+.update {
+  padding: 5px 10px;
+  width: fit-content;
+  margin: auto;
+  border-radius: 10px;
+  background-color: #eee;
+  display: block;
+  text-align: center;
+  color: #aaa;
+  font-size: 10px;
+  position: relative;
+  top: -25px;
+}
+.update button {
+  font-size: 11px;
+  background-color: #eee;
+  padding: 2px 5px;
+  border-radius: 5px;
+  border: 2px solid aqua;
+  margin-right: 10px;
+  color: #656565;
+}
+.update button:hover {
+  background-color: #aaa;
+}

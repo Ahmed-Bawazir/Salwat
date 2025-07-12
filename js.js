@@ -144,16 +144,16 @@ function updateCountdown() {
    </tr>`;
   }
   document.getElementById("table-data").innerHTML = text;
-  document.querySelector(
-    ".update span"
-  ).innerHTML = `اخر تحديث ${mydata[masjed].lastUpdate}`;
+  document.querySelector(".update span").innerHTML = `اخر تحديث ${
+    mydata[masjed].lastUpdate
+  }  ${daysAgoText(mydata[masjed].lastUpdate)}`;
   //next
   const next = findNextEvent();
   let h = next.timeLeft.hours > 0 ? ` ${next.timeLeft.hours} ساعة و` : "";
   const time = ` ${h} ${next.timeLeft.minutes + 1} دقيقة `;
   document.getElementById(
     "footer"
-  ).innerText = `تبقى ${time}من ${next.eventType} صلاة ${next.prayerName} (${next.time})`;
+  ).innerText = `تبقى ${time}من ${next.eventType} ${next.prayerName} (${next.time})`;
 
   //Notification
   // if (Notification.permission !== "granted") {
@@ -168,4 +168,29 @@ function updateCountdown() {
   //     icon: "🔔",
   //   });
   // }
+}
+function daysAgoText(dateString) {
+  const inputDate = new Date(dateString);
+  const today = new Date();
+
+  // ضبط الوقت لبداية اليوم
+  inputDate.setHours(0, 0, 0, 0);
+  today.setHours(0, 0, 0, 0);
+
+  const diffTime = today - inputDate;
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  if (diffDays < 0 || Number.isNaN(diffDays)) {
+    return ""; // التاريخ في المستقبل
+  } else if (diffDays === 0) {
+    return "( اليوم )";
+  } else if (diffDays === 1) {
+    return "( أمس)";
+  } else if (diffDays === 2) {
+    return "( قبل يومين )";
+  } else if (diffDays > 2 && diffDays < 11) {
+    return `( قبل ${diffDays}أيام )`;
+  } else {
+    return `( قبل ${diffDays} يوم )`;
+  }
 }

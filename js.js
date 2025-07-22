@@ -156,18 +156,18 @@ function updateCountdown() {
   ).innerText = `تبقى ${time}من ${next.eventType} ${next.prayerName} (${next.time})`;
 
   //Notification
-  // if (Notification.permission !== "granted") {
-  //   Notification.requestPermission();
-  // }
-  // if (
-  //   Notification.permission === "granted" &&
-  //   next.timeLeft.totalMinutes < 21
-  // ) {
-  //   new Notification("الحدث اقترب!", {
-  //     body: `تبقى اقل من 5دقائق على${next.eventType} ${next.prayerName}`,
-  //     icon: "🔔",
-  //   });
-  // }
+  if (Notification.permission !== "granted") {
+    Notification.requestPermission();
+  }
+  if (
+    Notification.permission === "granted" &&
+    next.timeLeft.totalMinutes < 120
+  ) {
+    new Notification("الحدث اقترب!", {
+      body: `تبقى اقل من 5دقائق على${next.eventType} ${next.prayerName}`,
+      icon: "🔔",
+    });
+  }
 }
 function daysAgoText(dateString) {
   const inputDate = new Date(dateString);

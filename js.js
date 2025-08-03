@@ -153,7 +153,7 @@ function updateCountdown() {
   const time = ` ${h} ${next.timeLeft.minutes + 1} دقيقة `;
   document.getElementById(
     "footer"
-  ).innerText = `تبقى ${time}من ${next.eventType} ${next.prayerName} (${next.time})`;
+  ).innerText = `تبقى ${time}من ${next.eventType} ${next.prayerName}`;
 
   //Notification
   // if (Notification.permission !== "granted") {

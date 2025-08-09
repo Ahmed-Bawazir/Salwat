@@ -34,6 +34,7 @@ function getData() {
 }
 //
 //
+
 let prayerTimes = [];
 let masjed = localStorage.getItem("msjd") || "ALSDDEQ";
 document
@@ -143,17 +144,25 @@ function updateCountdown() {
    <td>${convertTo12HourFormat(prayerTimes[index].iqama)}</td>
    </tr>`;
   }
+
   document.getElementById("table-data").innerHTML = text;
-  document.querySelector(".update span").innerHTML = `اخر تحديث ${
-    mydata[masjed].lastUpdate
-  }  ${daysAgoText(mydata[masjed].lastUpdate)}`;
+  let lastupDate = document.querySelector(".update span");
+  if (mydata[masjed].lastUpdate.includes("!")) {
+    lastupDate.innerHTML = `<span style="color:red;font-weight:bold">انتبه !! التوقيت لهذا المسجد قديم جدا </span>`;
+    document.getElementById("footer").innerText =
+      "اوقات هذا المسجد ليست محدثة  !!";
+  } else {
+    lastupDate.innerHTML = `اخر تحديث ${
+      mydata[masjed].lastUpdate
+    }  ${daysAgoText(mydata[masjed].lastUpdate)}`;
+    const next = findNextEvent();
+    let h = next.timeLeft.hours > 0 ? ` ${next.timeLeft.hours} ساعة و` : "";
+    const time = ` ${h} ${next.timeLeft.minutes + 1} دقيقة `;
+    document.getElementById(
+      "footer"
+    ).innerText = `تبقى ${time}من ${next.eventType} ${next.prayerName}`;
+  }
   //next
-  const next = findNextEvent();
-  let h = next.timeLeft.hours > 0 ? ` ${next.timeLeft.hours} ساعة و` : "";
-  const time = ` ${h} ${next.timeLeft.minutes + 1} دقيقة `;
-  document.getElementById(
-    "footer"
-  ).innerText = `تبقى ${time}من ${next.eventType} ${next.prayerName}`;
 
   //Notification
   // if (Notification.permission !== "granted") {
@@ -188,9 +197,12 @@ function daysAgoText(dateString) {
     return "( أمس)";
   } else if (diffDays === 2) {
     return "( قبل يومين )";
-  } else if (diffDays > 2 && diffDays < 11) {
+  } else if (diffDays > 2 && diffDays < 7) {
     return `( قبل ${diffDays}أيام )`;
+  } else if (diffDays > 6 && diffDays < 11) {
+    return `<span style="color:darkred;font-weight:bold"> انتبه لم يتم تحديث الاوقات لاكثر من ${diffDays} ايام </span>`;
   } else {
-    return `( قبل ${diffDays} يوم )`;
+    return `<span style="color:darkred;font-weight:bold"> انتبه لم يتم تحديث الاوقات لاكثر من ${diffDays} يوم </span>`;
   }
 }
+//
